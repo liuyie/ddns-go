@@ -11,6 +11,18 @@ const DNS_PROVIDERS = {
       "zh-cn": "<a target='_blank' href='https://ram.console.aliyun.com/manage/ak?spm=5176.12818093.nav-right.dak.488716d0mHaMgg'>创建 AccessKey</a>",
     }
   },
+  aliesa: {
+    name: {
+      "en": "Aliyun ESA",
+      "zh-cn": "阿里云 ESA",
+    },
+    idLabel: "AccessKey ID",
+    secretLabel: "AccessKey Secret",
+    helpHtml: {
+      "en": "<a target='_blank' href='https://ram.console.aliyun.com/manage/ak?spm=5176.12818093.nav-right.dak.488716d0mHaMgg'>Create AccessKey</a>",
+      "zh-cn": "<a target='_blank' href='https://ram.console.aliyun.com/manage/ak?spm=5176.12818093.nav-right.dak.488716d0mHaMgg'>创建 AccessKey</a>",
+    }
+  },
   tencentcloud: {
     name: {
       "en": "Tencent",
@@ -98,8 +110,8 @@ const DNS_PROVIDERS = {
     idLabel: "Key",
     secretLabel: "Secret",
     helpHtml: {
-      "en": "<a target='_blank' href='https://developer.godaddy.com/keys'>Create API KEY</a>",
-      "zh-cn": "<a target='_blank' href='https://developer.godaddy.com/keys'>创建 API KEY</a>",
+      "en": "<a target='_blank' href='https://developer.godaddy.com/keys'>Create API KEY</a><br/><span style='color: #ff9800;'>⚠️ Note: GoDaddy API requires you to have 10 or more domains or a Pro plan</span>",
+      "zh-cn": "<a target='_blank' href='https://developer.godaddy.com/keys'>创建 API KEY</a><br/><span style='color: #ff9800;'>⚠️ 温馨提示：GoDaddy 现在需要拥有 10 个及以上的域名或 Pro Plan 才可以使用 API</span>",
     }
   },
   namecheap: {
@@ -133,6 +145,11 @@ const DNS_PROVIDERS = {
     helpHtml: {
       "en": "<a target='_blank' href='https://vercel.com/account/tokens'>Create Token</a>",
       "zh-cn": "<a target='_blank' href='https://vercel.com/account/tokens'>创建令牌</a>",
+    },
+    extParamLabel: "Team ID",
+    extParamHelpHtml: {
+      "en": "Optional. If you are using a Vercel Team account, please fill in the Team ID",
+      "zh-cn": "可选项，如果您使用的是 Vercel 团队账户，请填写团队 ID"
     }
   },
   dynadot: {
@@ -237,6 +254,18 @@ const DNS_PROVIDERS = {
     helpHtml: {
       "en": "<a target='_blank' href='https://console.cloud.tencent.com/cam/capi'>Create AccessKey</a>",
       "zh-cn": "<a target='_blank' href='https://console.cloud.tencent.com/cam/capi'>创建腾讯云 API 密钥</a>",
+    }
+  },
+  nsone: {
+    name: {
+      "en": "IBM NS1 Connect",
+      "zh-cn": "IBM NS1 Connect",
+    },
+    idLabel: "",
+    secretLabel: "API Key",
+    helpHtml: {
+      "en": "<a target='_blank' href='https://my.nsone.net/#/account/settings/keys'>Create API Key</a>",
+      "zh-cn": "<a target='_blank' href='https://my.nsone.net/#/account/settings/keys'>创建 API 密钥</a>",
     }
   },
 };
