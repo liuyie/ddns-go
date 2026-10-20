@@ -1,4 +1,3 @@
-# .goreleaser.yaml
 version: 2
 
 builds:
@@ -17,7 +16,6 @@ builds:
 
 archives:
   - format: tar.gz
-    # windows打包为zip
     format_overrides:
       - goos: windows
         format: zip
@@ -27,25 +25,23 @@ archives:
       {{- .Os }}_
       {{- .Arch }}
 
-dockers_v2:
-  - images:
-      - ghcr.io/liuyie/ddns-go
-    dockerfile: ./Dockerfile
-    platforms:
-      - linux/amd64
-      - linux/arm64
-    image_templates:
+dockers:
+  - image_templates:
       - "ghcr.io/liuyie/ddns-go:{{ .Tag }}"
       - "ghcr.io/liuyie/ddns-go:{{ .Tag }}-amd64"
       - "ghcr.io/liuyie/ddns-go:{{ .Tag }}-arm64"
       - "ghcr.io/liuyie/ddns-go:latest"
+    dockerfile: ./Dockerfile
+    use: buildx
     build_flag_templates:
       - "--pull"
+    platforms:
+      - linux/amd64
+      - linux/arm64
 
 release:
   github:
-    draft: false
-    prerelease: false
+    release_name: "{{ .Tag }}"
 
 checksum:
   name_template: 'checksums.txt'
