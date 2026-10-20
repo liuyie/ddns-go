@@ -49,7 +49,6 @@ docker_manifests:
       - "ghcr.io/liuyie/ddns-go:{{ .Tag }}-amd64"
       - "ghcr.io/liuyie/ddns-go:{{ .Tag }}-arm64"
 release:
-  name: "{{ .Tag }}"
   github: {}
 checksum:
   name_template: 'checksums.txt'
