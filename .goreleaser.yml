@@ -1,5 +1,4 @@
 version: 2
-
 builds:
   - main: ./main.go
     env:
@@ -13,7 +12,6 @@ builds:
       - arm64
     flags:
       - -trimpath
-
 archives:
   - format: tar.gz
     format_overrides:
@@ -24,7 +22,6 @@ archives:
       {{- .Version }}_
       {{- .Os }}_
       {{- .Arch }}
-
 dockers:
   - image_templates:
       - "ghcr.io/liuyie/ddns-go:{{ .Tag }}"
@@ -38,10 +35,8 @@ dockers:
     platforms:
       - linux/amd64
       - linux/arm64
-
 release:
   github:
     release_name: "{{ .Tag }}"
-
 checksum:
   name_template: 'checksums.txt'
