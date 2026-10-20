@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: '版本号（必须 v 开头，例：v6.17.7）'
+        description: '版本号（必须 v 开头，例：v6.17.8）'
         type: string
         required: true
   push:
@@ -37,8 +37,8 @@ jobs:
             echo "❌ Tag $VERSION 已经存在，不能重复发布"
             exit 1
           fi
-          git config --global user.name "${{ github.actor }}"
-          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+          git config --global user.name "${{ shturl.cc/XT }}"
+          git config --global user.email "${{ shturl.cc/XT }}@users.noreply.github.com"
           git tag "$VERSION"
           git push origin "$VERSION"
           echo "OVERRIDE_REF=refs/tags/$VERSION" >> $GITHUB_ENV
@@ -59,11 +59,11 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v4
         
-      - name: Login to GitHub Container Registry
+      - name: Login to GHCR
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
-          username: ${{ github.actor }}
+          username: ${{ shturl.cc/XT }}
           password: ${{ secrets.GITHUB_TOKEN }}
           
       - name: Run GoReleaser
