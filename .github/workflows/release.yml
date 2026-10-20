@@ -37,8 +37,8 @@ jobs:
             echo "❌ Tag $VERSION 已经存在，不能重复发布"
             exit 1
           fi
-          git config --global user.name "${{ shturl.cc/Mj }}"
-          git config --global user.email "${{ shturl.cc/Mj }}@users.noreply.github.com"
+          git config --global user.name "${{ github.actor }}"
+          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
           git tag "$VERSION"
           git push origin "$VERSION"
           echo "OVERRIDE_REF=refs/tags/$VERSION" >> $GITHUB_ENV
@@ -63,7 +63,7 @@ jobs:
         uses: docker/login-action@v4.6.0
         with:
           registry: ghcr.io
-          username: ${{ shturl.cc/Mj }}
+          username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
           
       - name: Run GoReleaser
