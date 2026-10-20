@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: '版本号（必须 v 开头，例：v0.1.0）'
+        description: '版本号（必须 v 开头，例：v6.17.7）'
         type: string
         required: true
   push:
@@ -15,7 +15,7 @@ permissions:
   packages: write
 
 jobs:
-  create-tag-and-release:
+  goreleaser:
     name: Build
     runs-on: ubuntu-latest
     steps:
@@ -24,26 +24,30 @@ jobs:
         with:
           fetch-depth: 0
 
-      # ========== 只有手动触发的时候：创建并推送 tag ==========
-      - name: Create & push tag (manual trigger)
+      - name: Prepare tag (manual dispatch)
+        id: prep-tag
         if: github.event_name == 'workflow_dispatch'
         run: |
           VERSION=${{ github.event.inputs.version }}
           if [[ ! "$VERSION" =~ ^v ]]; then
-            echo "❌ 版本号必须以 v 开头，例如 v0.1.0"
+            echo "❌ 版本号必须以 v 开头，例如 v6.17.7"
             exit 1
           fi
-          # 检查 tag 是否已存在
           if git rev-parse "$VERSION" >/dev/null 2>&1; then
             echo "❌ Tag $VERSION 已经存在，不能重复发布"
             exit 1
           fi
-          git config --global user.name "${{ github.actor }}"
-          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+          git config --global user.name "${{ shturl.cc/Mj }}"
+          git config --global user.email "${{ shturl.cc/Mj }}@users.noreply.github.com"
           git tag "$VERSION"
           git push origin "$VERSION"
+          echo "OVERRIDE_REF=refs/tags/$VERSION" >> $GITHUB_ENV
 
-      # ========== 开始 goreleaser 打包发布 ==========
+      - name: Override GITHUB_REF for goreleaser
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          echo "GITHUB_REF=${{ env.OVERRIDE_REF }}" >> $GITHUB_ENV
+
       - name: Set up Go
         uses: actions/setup-go@v7
         with:
@@ -59,7 +63,7 @@ jobs:
         uses: docker/login-action@v4.6.0
         with:
           registry: ghcr.io
-          username: ${{ github.actor }}
+          username: ${{ shturl.cc/Mj }}
           password: ${{ secrets.GITHUB_TOKEN }}
           
       - name: Run GoReleaser
